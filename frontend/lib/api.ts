@@ -1,5 +1,11 @@
 const DEFAULT_PORT = '8001';
-export const API_BASE = process.env.NEXT_PUBLIC_API_URL || `http://localhost:${DEFAULT_PORT}/api`;
+export const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL ||
+  (typeof window !== 'undefined' &&
+  window.location.hostname !== 'localhost' &&
+  window.location.hostname !== '127.0.0.1'
+    ? '/api'
+    : `http://localhost:${DEFAULT_PORT}/api`);
 
 export function getWsUrl(): string {
   if (process.env.NEXT_PUBLIC_WS_URL) {
@@ -193,7 +199,7 @@ export interface AuditLog {
 }
 
 // ------------------- HIGH FIDELITY PRODUCTION FALLBACK DATA -------------------
-const FALLBACK_MACHINES: Machine[] = [
+export const FALLBACK_MACHINES: Machine[] = [
   {
     id: 'M-104',
     name: 'CNC Milling Machine 4',
@@ -350,7 +356,7 @@ const FALLBACK_MACHINES: Machine[] = [
   },
 ];
 
-const FALLBACK_SUMMARY: AnalyticsSummary = {
+export const FALLBACK_SUMMARY: AnalyticsSummary = {
   factory_health_score: 90.5,
   total_machines: 8,
   machines_online: 8,
@@ -365,7 +371,7 @@ const FALLBACK_SUMMARY: AnalyticsSummary = {
   maintenance_efficiency_pct: 24.5,
 };
 
-const FALLBACK_ALERTS: Alert[] = [
+export const FALLBACK_ALERTS: Alert[] = [
   {
     id: 'ALT-104-01',
     machine_id: 'M-104',
@@ -396,7 +402,7 @@ const FALLBACK_ALERTS: Alert[] = [
   },
 ];
 
-const FALLBACK_PREDICTIONS: Prediction[] = [
+export const FALLBACK_PREDICTIONS: Prediction[] = [
   {
     id: 1,
     machine_id: 'M-104',
@@ -427,7 +433,7 @@ const FALLBACK_PREDICTIONS: Prediction[] = [
   },
 ];
 
-const FALLBACK_RECOMMENDATIONS: Recommendation[] = [
+export const FALLBACK_RECOMMENDATIONS: Recommendation[] = [
   {
     id: 1,
     machine_id: 'M-104',
@@ -456,7 +462,7 @@ const FALLBACK_RECOMMENDATIONS: Recommendation[] = [
   },
 ];
 
-const FALLBACK_INSPECTIONS: DefectInspection[] = [
+export const FALLBACK_INSPECTIONS: DefectInspection[] = [
   {
     id: 1,
     component_name: 'Component A-218 (CNC Spindle Housing)',
@@ -482,7 +488,7 @@ const FALLBACK_INSPECTIONS: DefectInspection[] = [
   },
 ];
 
-const FALLBACK_MAINTENANCE_RECORDS: MaintenanceRecord[] = [
+export const FALLBACK_MAINTENANCE_RECORDS: MaintenanceRecord[] = [
   {
     id: 101,
     machine_id: 'M-104',
@@ -511,7 +517,7 @@ const FALLBACK_MAINTENANCE_RECORDS: MaintenanceRecord[] = [
   },
 ];
 
-const FALLBACK_AUDIT_LOGS: AuditLog[] = [
+export const FALLBACK_AUDIT_LOGS: AuditLog[] = [
   {
     id: 1,
     user_name: 'Marcus Vance',
